@@ -8,8 +8,8 @@ function solution(cacheSize, cities) {
         const city = cities[i].toUpperCase();
         
         if(map.has(city)) {
-            answer+=1;
             map.set(city, i);
+            answer+=1;
             continue;
         }
      
