@@ -16,12 +16,12 @@ function toSec(str) {
 
 function solution(lines) {
     var answer = 0;
+    let arr = [];
     lines.sort((a,b)=>{
         const [startTimeA, endTimeA] = toSec(a);
         const [startTimeB, endTimeB] = toSec(b);
         return startTimeA-startTimeB;
     })
-    let arr = [];
     
     for(let line of lines) {
         const [startTime, endTime] = toSec(line);
