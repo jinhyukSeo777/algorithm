@@ -17,14 +17,10 @@ function toSec(str) {
 function solution(lines) {
     var answer = 0;
     let arr = [];
-    lines.sort((a,b)=>{
-        const [startTimeA, endTimeA] = toSec(a);
-        const [startTimeB, endTimeB] = toSec(b);
-        return startTimeA-startTimeB;
-    })
+    lines = lines.map((v)=>toSec(v)).sort((a,b)=>a[0]-b[0]);
     
     for(let line of lines) {
-        const [startTime, endTime] = toSec(line);
+        const [startTime, endTime] = line;
         arr = arr.filter((v)=>v+1000 > startTime);
         arr.push(endTime);
         answer = Math.max(answer, arr.length);
