@@ -1,6 +1,4 @@
 function solution(sticker) {
-    var answer = 0;
-    
     if(sticker.length <= 2) return Math.max(...sticker);
     
     const dp1 = [];
@@ -8,7 +6,6 @@ function solution(sticker) {
     dp1[1] = sticker[0];
     for(let i = 2; i < sticker.length-1; i++) {
         dp1[i] = Math.max(dp1[i-2]+sticker[i], dp1[i-1]);
-        answer = Math.max(answer, dp1[i]);
     }
     
     const dp2 = [];
@@ -16,8 +13,7 @@ function solution(sticker) {
     dp2[1] = sticker[1];
     for(let i = 2; i < sticker.length; i++) {
         dp2[i] = Math.max(dp2[i-2]+sticker[i], dp2[i-1]);
-        answer = Math.max(answer, dp2[i]);
     }
     
-    return answer;
+    return Math.max(dp1[sticker.length-2], dp2[sticker.length-1]);
 }
