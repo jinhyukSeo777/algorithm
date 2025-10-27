@@ -11,21 +11,21 @@ function solution(user_id, banned_id) {
     const set = new Set();
     const list_set = new Set();
     
-    function dfs(index, list) {
-        if(list.length === banned_id.length) {
-            const list_str = list.sort().join("");
+    function dfs(index) {
+        if(index === banned_id.length) {
+            const list_str = [...set].sort().join("");
             list_set.add(list_str);
             return;
         }
         for(let user of user_id) {
             if(set.has(user) || !isPossible(user, banned_id[index])) continue;
             set.add(user);
-            dfs(index+1, [...list, user]);
+            dfs(index+1);
             set.delete(user);
         }
     }
     
-    dfs(0, []);
+    dfs(0);
     
     return list_set.size;
 }
