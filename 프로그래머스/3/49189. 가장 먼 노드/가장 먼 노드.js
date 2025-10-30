@@ -1,5 +1,4 @@
 function solution(n, edge) {
-    var answer = 0;
     const map = new Map();
     
     for(let [from, to] of edge) {
@@ -9,21 +8,21 @@ function solution(n, edge) {
         map.get(to).push(from);
     }
  
-    const arr = new Array(n+1).fill(-1);
+    const arr = new Array(n+1).fill(Infinity);
     const queue = [];
     queue.push(1);
     arr[1] = 0;
     
     while(queue.length > 0) {
         const item = queue.shift();
-        for(let node of map.get(item) || []) {
-            if(arr[node] === -1) {
-                queue.push(node);
-                arr[node] = arr[item]+1;
+        for(let next of map.get(item) || []) {
+            if(arr[next] > arr[item] + 1) {
+                arr[next] = arr[item]+1;
+                queue.push(next);
             }
         }
     }
     
-    const max = Math.max(...arr);
+    const max = Math.max(...arr.slice(1));
     return arr.filter((v)=>v===max).length;
 }
