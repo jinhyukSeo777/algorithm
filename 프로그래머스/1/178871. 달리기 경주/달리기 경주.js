@@ -1,18 +1,22 @@
 function solution(players, callings) {
     const map = new Map();
+    const rmap = new Map();
     
-    players.forEach((v,i)=>map.set(v, i));
+    for(let i = 0; i < players.length; i++) {
+        map.set(players[i], i);
+        rmap.set(i, players[i]);
+    }
     
     for(let calling of callings) {
         const index = map.get(calling);
-        const temp = players[index-1];
-        
-        players[index-1] = calling;
-        players[index] = temp;
+        const front = rmap.get(index-1);
         
         map.set(calling, index-1);
-        map.set(temp, index);
+        map.set(front, index);
+        
+        rmap.set(index-1, calling);
+        rmap.set(index, front);
     }
     
-    return players;
+    return [...map].sort((a,b)=>a[1]-b[1]).map((v)=>v[0]);
 }
