@@ -7,7 +7,7 @@ function solution(players, callings) {
         const index = map.get(calling);
         const temp = players[index-1];
         
-        players[index-1] = players[index];
+        players[index-1] = calling;
         players[index] = temp;
         
         map.set(calling, index-1);
