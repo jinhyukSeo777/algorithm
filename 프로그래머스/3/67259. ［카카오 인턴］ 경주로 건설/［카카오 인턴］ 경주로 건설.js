@@ -1,6 +1,8 @@
 function solution(board) {
+    const height = board.length;
+    const width = board[0].length;
     const d = [[1,0,1], [-1,0,1], [0,1,0], [0,-1,0]];
-    const arr = new Array(board.length).fill(null).map((v)=>new Array(board[0].length).fill(null).map((v)=>new Array(2).fill(Infinity)));
+    const arr = new Array(height).fill(null).map((v)=>new Array(width).fill(null).map((v)=>new Array(2).fill(Infinity)));
     
     const queue = [];
     arr[0][0][0] = 0;
@@ -12,7 +14,7 @@ function solution(board) {
         const [y, x, dir] = queue.shift();
         for(let [dy, dx, ddir] of d) {
             const ny = y + dy, nx = x + dx;
-            if(ny >= 0 && ny < board.length && nx >= 0 && nx < board[0].length) {
+            if(ny >= 0 && ny < height && nx >= 0 && nx < width) {
                 if(board[ny][nx] === 0 && dir === ddir && arr[ny][nx][dir] > arr[y][x][dir]+100) {
                     arr[ny][nx][dir] = arr[y][x][dir]+100;
                     queue.push([ny, nx, dir]);
@@ -25,5 +27,5 @@ function solution(board) {
         }
     }
     
-    return Math.min(arr[board.length-1][board[0].length-1][0], arr[board.length-1][board[0].length-1][1]);
+    return Math.min(arr[height-1][width-1][0], arr[height-1][width-1][1]);
 }
