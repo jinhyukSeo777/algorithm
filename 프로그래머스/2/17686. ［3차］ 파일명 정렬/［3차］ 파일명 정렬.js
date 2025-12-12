@@ -1,20 +1,20 @@
 function splitStringByNumber(input) {
-    const match = input.match(/^([^0-9]+)([0-9]+)(.*)$/);
-    const [_, prefix, number, suffix] = match;
-    return { prefix, number, suffix };
+    const [_, prefix, number, suffix] = input.match(/([^0-9]+)([0-9]+)(.*)/);
+    return [prefix.toLowerCase(), Number(number), suffix];
 }
 
 function solution(files) {
-   return files.sort((a,b)=>{
-       const result1 = splitStringByNumber(a);
-       const result2 = splitStringByNumber(b);
-       if(result1.prefix.toLowerCase() !== result2.prefix.toLowerCase()) {
-           return result1.prefix.toLowerCase().localeCompare(result2.prefix.toLowerCase());
-       }
-       if(+result1.number - +result2.number) {
-           return +result1.number - +result2.number;
-       }
-   })
+    // const str = "img12.png img34.png img56.png";
+    // console.log(str.match(/([^0-9]+)([0-9]+)(.*)/));
+    // console.log(str.match(/^[^0-9]+[0-9]+.*$/));
+    // console.log(/[^0-9]+[0-9]+.*/.test(str))
+    // console.log(str.match(/[a-zA-Z]+[0-9]+\.png/g));
+    // console.log(str.split(/[a-zA-Z]+[0-9]+\.png/));
     
-    return files;
+    return files.sort((a,b)=>{
+        const result1 = splitStringByNumber(a);
+        const result2 = splitStringByNumber(b);
+        if(result1[0] !== result2[0]) return result1[0].localeCompare(result2[0]);
+        if(result1[1] !== result2[1]) return result1[1] - result2[1];
+    })
 }
