@@ -1,17 +1,18 @@
-function getScore(info, arr) {
-    let score = 0;
+function getDiff(info, arr) {
+    let diff = 0;
     
     for(let i = 0; i < 11; i++) { 
         if(info[i] === 0 && arr[i] === 0) continue;
-        if(info[i] < arr[i]) score+=(10-i);    
-        if(info[i] >= arr[i]) score-=(10-i);   
+        if(info[i] < arr[i]) diff+=(10-i);    
+        if(info[i] >= arr[i]) diff-=(10-i);   
     }
     
-    return score;
+    return diff;
 }
 
 function isCorrectOrder(answer, arr) {
     if(answer.length === 0) return true;
+    
     for(let i = 10; i >= 0; i--) {
         if(answer[i] < arr[i]) return true;
         if(answer[i] > arr[i]) return false;
@@ -20,14 +21,14 @@ function isCorrectOrder(answer, arr) {
 
 function solution(n, info) {
     var answer = [];
-    let max = 0;
+    const arr = new Array(11).fill(0);
+    let max = 1;
     
-    function dfs(arr, i, arrow) {
-        if(arrow > n) return;
+    function dfs(i, arrow) {
+        if(arrow < 0) return;
         
-        if(arrow === n) {
-            const score = getScore(info, arr);
-            if(score === 0) return;
+        if(arrow === 0) {
+            const score = getDiff(info, arr);
             if(score > max || (score === max && isCorrectOrder(answer, arr))) {
                 max = score;
                 answer = [...arr];
@@ -36,27 +37,26 @@ function solution(n, info) {
         }
         
         if(i === 11) {
-            arr[10]+=(n-arrow);
-            const score = getScore(info, arr);
-            if(score === 0) return;
+            arr[10]+=arrow;
+            const score = getDiff(info, arr);
             if(score > max || (score === max && isCorrectOrder(answer, arr))) {
                 max = score;
                 answer = [...arr];
             }
-            arr[10]-=(n-arrow);
+            arr[10]-=arrow;
             return;
         }
         
-        const apeachScore = info[i];
+        // 1.
+        dfs(i+1, arrow);
         
-        dfs(arr, i+1, arrow);
-        
-        arr[i] = apeachScore+1;
-        dfs(arr, i+1, arrow+apeachScore+1);
+        // 2.
+        arr[i] = info[i] + 1;
+        dfs(i+1, arrow - info[i] - 1);
         arr[i] = 0;
     }
     
-    dfs(new Array(11).fill(0), 0, 0);
+    dfs(0, n);
     
     return answer.length === 0 ? [-1] : answer;
 }
