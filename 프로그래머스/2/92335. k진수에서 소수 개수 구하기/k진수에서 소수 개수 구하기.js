@@ -1,8 +1,8 @@
 function isPrime(num) {
-    if (num === 1) return false;
+    if(num === 1) return false;
     
     for (let i = 2; i * i <= num; i++) {
-        if (num % i === 0) return false;
+        if(num % i === 0) return false;
     }
     
     return true;
@@ -10,8 +10,7 @@ function isPrime(num) {
 
 function solution(n, k) {
     const str = n.toString(k);
-    const arr = str.split("0").filter(Boolean);
+    const arr = str.split("0").filter(Boolean).map(Number);
 
-    return arr.filter((v)=>isPrime(+v)).length;
-   
+    return arr.filter(v => isPrime(v)).length;
 }
