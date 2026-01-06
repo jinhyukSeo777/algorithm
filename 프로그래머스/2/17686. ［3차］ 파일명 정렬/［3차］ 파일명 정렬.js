@@ -1,5 +1,7 @@
 function splitStringByNumber(input) {
-    const [_, prefix, number, suffix] = input.match(/^([^0-9]+)([0-9]+)(.*)$/);
+    // const [_, prefix, number, suffix] = input.match(/^([^0-9]+)([0-9]+)(.*)$/);
+    const [prefix, suffix] = input.split(/[0-9]+/);
+    const number = input.match(/[0-9]+/);
     return [prefix.toLowerCase(), Number(number), suffix];
 }
 
