@@ -1,13 +1,14 @@
 function splitStringByNumber(input) {
-    const [_, prefix, number, suffix] = input.match(/([^0-9]+)([0-9]+)(.*)/);
+    const [_, prefix, number, suffix] = input.match(/^([^0-9]+)([0-9]+)(.*)$/);
     return [prefix.toLowerCase(), Number(number), suffix];
 }
 
 function solution(files) {
     // const str = "img12.png img34.png img56.png";
-    // console.log(str.match(/([^0-9]+)([0-9]+)(.*)/));
-    // console.log(str.match(/^[^0-9]+[0-9]+.*$/));
-    // console.log(/[^0-9]+[0-9]+.*/.test(str))
+    // console.log(str.match(/^([^0-9]+)([0-9]+)(.*)$/));
+    // console.log(str.match(/[^0-9]+[0-9]+.*/g));
+    // console.log(/[^0-9]+[0-9]+.*/.test(str))   //
+    // console.log(/^[^0-9]+[0-9]+.*$/.test(str)) // 둘이 다름
     // console.log(str.match(/[a-zA-Z]+[0-9]+\.png/g));
     // console.log(str.split(/[a-zA-Z]+[0-9]+\.png/));
     
