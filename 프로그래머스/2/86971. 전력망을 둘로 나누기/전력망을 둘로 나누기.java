@@ -1,26 +1,32 @@
 import java.util.*;
 
 class Solution {
-    public int bfs(int[][] newWires, int n) {
-        int[][] arr = new int[1000][1000];
+    public int bfs(int[][] wires, int n, int x) {
+        Map<Integer, Set<Integer>> map = new HashMap<>();
         Set<Integer> set = new HashSet<>();
         
-        for(int i = 0; i < newWires.length; i++) {
-            int[] newWire = newWires[i];
-            arr[newWire[0]][newWire[1]] = 1;
-            arr[newWire[1]][newWire[0]] = 1;
+        for(int i = 0; i < wires.length; i++) {
+            if(i == x) continue;
+            int start = wires[i][0];
+            int end = wires[i][1];
+            
+            if(!map.containsKey(start)) map.put(start, new HashSet());
+            if(!map.containsKey(end)) map.put(end, new HashSet());
+            map.get(start).add(end);
+            map.get(end).add(start);
         }
         
         Deque<Integer> queue = new ArrayDeque<>();
-        queue.push(1);
+        queue.offer(1);
         set.add(1);
         
         while(queue.size() > 0) {
-            int item = queue.poll();
-            for(int i = 1; i <= n; i++) {
-                if(arr[item][i] == 1 && !set.contains(i)) {
-                    queue.push(i);
-                    set.add(i);
+            int current = queue.pop();
+            if(!map.containsKey(current)) continue;
+            for(int next : map.get(current)) {
+                if(!set.contains(next)) {
+                    queue.offer(next);
+                    set.add(next);
                 }
             }
         }
@@ -32,17 +38,7 @@ class Solution {
         int answer = 10000000;
         
         for(int i = 0; i < wires.length; i++) {
-            int[][] newWires = new int[wires.length-1][2];
-            
-            int index = 0;
-            for(int j = 0; j < wires.length; j++) {
-                if(i == j) continue;
-                newWires[index][0] = wires[j][0];
-                newWires[index][1] = wires[j][1];
-                index++;
-            }
-            
-            int len = bfs(newWires, n);
+            int len = bfs(wires, n, i);
             
             answer = Math.min(answer, Math.abs(len - (n-len)));
         }
