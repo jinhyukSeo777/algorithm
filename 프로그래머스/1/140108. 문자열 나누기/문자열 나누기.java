@@ -3,31 +3,31 @@ class Solution {
         int answer = 0;
         int index = 0;
         
-        String x = "";
+        char x = '-';
         int left = -1;
         int right = -1;
         
         while(index < s.length()) {
-            if(x.equals("")) {
-                x = s.substring(index, index+1);
+            if(x == '-') {
+                x = s.charAt(index);
                 left = 1;
                 right = 0;
                 index++;
                 continue;
             }
             
-            if(s.substring(index, index+1).equals(x)) left++;
+            if(x == s.charAt(index)) left++;
             else right++;
 
             if(left == right) {
                 answer++;
-                x = "";
+                x = '-';
             }
 
             index++;
         }
         
-        if(!x.equals("")) answer++;
+        if(x != '-') answer++;
         
         return answer;
     }
