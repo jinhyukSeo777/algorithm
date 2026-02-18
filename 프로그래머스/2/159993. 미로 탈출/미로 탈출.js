@@ -8,7 +8,6 @@ function getDistance(start, end, maps) {
     
     while(queue.length > 0) {
         const [y, x] = queue.shift();
-        
         for(let [dy, dx] of d) {
             const ny = y+dy, nx = x+dx;
             if(ny >= 0 && ny < maps.length && nx >= 0 && nx < maps[0].length) {
