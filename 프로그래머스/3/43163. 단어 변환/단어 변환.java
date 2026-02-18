@@ -17,25 +17,25 @@ class Solution {
         return true;
     }
     
-    public void dfs(String str, String target, String[] words, int index, int[] check) {
+    public void dfs(String str, String target, String[] words, int index, Set<String> set) {
         if(answer < index) return;
         if(str.equals(target)) {
             answer = Math.min(answer, index);
             return;
         }
-        for(int i = 0; i < words.length; i++) {
-            if(check[i] == 0 && near(words[i], str)) {
-                check[i] = 1;
-                dfs(words[i], target, words, index+1, check);
-                check[i] = 0;
+        for(String s : words) {
+            if(!set.contains(s) && near(s, str)) {
+                set.add(s);
+                dfs(s, target, words, index+1, set);
+                set.remove(s);
             }
         }
     }
     
     public int solution(String begin, String target, String[] words) {
-        int[] check = new int[words.length];
+        Set<String> set = new HashSet<>();
         
-        dfs(begin, target, words, 0, check);
+        dfs(begin, target, words, 0, set);
         
         return answer == 1000000 ? 0 : answer;
     }
