@@ -24,6 +24,9 @@ class Solution {
         
         while(queue.size() > 0) {
             int current = queue.pop();
+            
+            if(!map.containsKey(current)) continue;
+            
             for(int next : map.get(current)) {
                 if(arr[next] == -1) {
                     arr[next] = arr[current]+1;
