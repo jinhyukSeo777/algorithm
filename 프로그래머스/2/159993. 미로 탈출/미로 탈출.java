@@ -5,7 +5,7 @@ class Solution {
         int height = maps.length;
         int width = maps[0].length();
         int[][] arr = new int[height][width];
-        int[][] d = {{-1, 0}, {1, 0}, {0, 1}, {0, -1}};
+        int[][] d = new int[][]{{-1, 0}, {1, 0}, {0, 1}, {0, -1}};
         
         for(int i = 0; i < height; i++) {
             for(int j = 0; j < width; j++) {
@@ -14,8 +14,8 @@ class Solution {
         }
         
         Deque<int[]> queue = new ArrayDeque<>();
-        queue.offer(new int[]{start[0], start[1]});
         arr[start[0]][start[1]] = 0;
+        queue.offer(new int[]{start[0], start[1]});
         
         while(queue.size() > 0) {
             int[] item = queue.pop();
