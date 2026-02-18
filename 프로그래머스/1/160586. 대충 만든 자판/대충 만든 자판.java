@@ -3,19 +3,16 @@ import java.util.*;
 class Solution {
     public int[] solution(String[] keymap, String[] targets) {
         int[] answer = new int[targets.length];
-        Map<String, Integer> map = new HashMap<>();
+        Map<Character, Integer> map = new HashMap<>();
         
         for(int i = 0; i < keymap.length; i++) {
             String str = keymap[i];
             
             for(int j = 0; j < str.length(); j++) {
-                String ch = str.substring(j, j+1);
+                char ch = str.charAt(j);
                 
-                if(map.containsKey(ch)) {
-                    map.put(ch, Math.min(j+1, map.get(ch)));
-                } else {
-                    map.put(ch, j+1);
-                }
+                if(map.containsKey(ch)) map.put(ch, Math.min(j+1, map.get(ch)));
+                else map.put(ch, j+1);
             }
         }
         
@@ -24,7 +21,7 @@ class Solution {
             int sum = 0;
             
             for(int j = 0; j < str.length(); j++) {
-                String ch = str.substring(j, j+1);
+                char ch = str.charAt(j);
                 
                 if(!map.containsKey(ch)) {
                     sum = -1;
