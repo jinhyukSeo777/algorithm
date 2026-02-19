@@ -1,10 +1,11 @@
 class Solution {
     public int solution(int m, int n, int[][] puddles) {
-        int answer = 0;
         int[][] arr = new int[n][m];
         
         for(int i = 0; i < puddles.length; i++) {
-            arr[puddles[i][1]-1][puddles[i][0]-1] = -1;
+            int y = puddles[i][1];
+            int x = puddles[i][0];
+            arr[y-1][x-1] = -1;
         }
         
         arr[0][0] = 1;
