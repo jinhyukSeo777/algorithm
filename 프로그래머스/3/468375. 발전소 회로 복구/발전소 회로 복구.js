@@ -19,9 +19,8 @@ function bfs(ci, cj, ni, nj, grid) {
     queue.push([ci, cj]);
     arr[ci][cj] = 0;
     
-    let head = 0;
-    while(queue.length > head) {
-        const [y, x] = queue[head++];
+    while(queue.length > 0) {
+        const [y, x] = queue.shift();
         for(let [dy, dx] of d) {
             const ny = y+dy, nx = x+dx;
             if(ny >= 0 && ny < grid.length && nx >= 0 && nx < grid[0].length) {
