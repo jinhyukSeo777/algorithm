@@ -16,14 +16,13 @@ function toSec(str) {
 
 function solution(lines) {
     var answer = 0;
-    let arr = [];
+    const arr = [];
     lines = lines.map((v)=>toSec(v)).sort((a,b)=>a[0]-b[0]);
     
-    for(let line of lines) {
-        const [startTime, endTime] = line;
-        arr = arr.filter((v)=>v+1000 > startTime);
+    for(let [startTime, endTime] of lines) {
+        const temp = arr.filter((v)=>v+1000 > startTime);
+        answer = Math.max(answer, temp.length + 1);
         arr.push(endTime);
-        answer = Math.max(answer, arr.length);
     }
     
     return answer;
