@@ -1,11 +1,20 @@
+function getCost(current, target) {
+    if(current === "stone" && target === "stone") return 1;
+    if(current === "stone" && target === "iron") return 5;
+    if(current === "stone" && target === "diamond") return 25;
+    
+    if(current === "iron" && target === "stone") return 1;
+    if(current === "iron" && target === "iron") return 1;
+    if(current === "iron" && target === "diamond") return 5;
+    
+    if(current === "diamond" && target === "stone") return 1;
+    if(current === "diamond" && target === "iron") return 1;
+    if(current === "diamond" && target === "diamond") return 1;
+}
+
 function solution(picks, minerals) {
     var answer = Infinity;
-    const tired = [[1, 1, 1], [5, 1, 1], [25, 5, 1]];
-    minerals = minerals.map((v)=>{
-        if(v === "diamond") return 0;
-        if(v === "iron") return 1;
-        if(v === "stone") return 2;
-    })
+    const mineral = ["diamond", "iron", "stone"];
     
     function dfs(index, life, current, sum) {
         if(index === minerals.length) {
@@ -14,24 +23,25 @@ function solution(picks, minerals) {
         }
         
         if(life !== 0) {
-            dfs(index+1, life-1, current, sum+tired[current][minerals[index]]);
+            dfs(index+1, life-1, current, sum + getCost(current, minerals[index]));
             return;
         }
         
-        if(picks.every((v)=>v===0)) {
+        if(picks.every(v => v===0)) {
             answer = Math.min(answer, sum);
             return;
         }
         
-        for(let i of [0, 1, 2]) {
+        for(let i = 0; i <= 2; i++) {
             if(picks[i] === 0) continue;
+            
             picks[i]--;
-            dfs(index, 5, i, sum);
+            dfs(index, 5, mineral[i], sum);
             picks[i]++;
         }
     }
     
-    dfs(0, 0, 0, 0);
+    dfs(0, 0, "", 0);
     
     return answer;
 }
