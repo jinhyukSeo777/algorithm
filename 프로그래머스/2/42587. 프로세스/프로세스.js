@@ -10,7 +10,7 @@ function solution(priorities, location) {
             location--;
         } else {
             priorities.push(front);
-            location = (location-1+priorities.length)%priorities.length;
+            location = location === 0 ? priorities.length-1 : location-1;
         }
     } 
     
