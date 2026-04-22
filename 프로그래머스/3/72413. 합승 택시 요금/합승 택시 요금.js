@@ -15,8 +15,9 @@ function solution(n, s, a, b, fares) {
         queue.push(start);
         arr[start] = 0;
         
-        while(queue.length > 0) {
-            const current = queue.shift();
+        let head = 0;
+        while(head < queue.length) {
+            const current = queue[head++];
             for(let [next, cost] of map.get(current) || []) {
                 if(arr[current] + cost < arr[next]) {
                     queue.push(next);
