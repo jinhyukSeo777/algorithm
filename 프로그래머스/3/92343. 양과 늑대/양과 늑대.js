@@ -13,8 +13,9 @@ function solution(info, edges) {
         if(wolf >= sheep) return;
         answer = Math.max(answer, sheep);
         
-        const newPossible = [...possible, ...(map.get(current) || [])];
-        newPossible.splice(newPossible.indexOf(current), 1);
+        let newPossible = [...possible];
+        newPossible = newPossible.filter(v => v !== current);
+        newPossible = [...newPossible, ...(map.get(current) || [])];
         
         for(let next of newPossible) {
             dfs(next, newPossible, sheep, wolf);
