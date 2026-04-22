@@ -7,8 +7,9 @@ function solution(n, computers) {
         queue.push(i);
         set.add(i);
         
-        while(queue.length > 0) {
-            const item = queue.shift();
+        let head = 0;
+        while(head < queue.length) {
+            const item = queue[head++];
             for(let i = 0; i < n; i++) {
                 if(computers[item][i] === 1 && !set.has(i) && item !== i) {
                     queue.push(i);
